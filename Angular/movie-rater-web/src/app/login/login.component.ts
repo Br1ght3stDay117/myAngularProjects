@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+    if (localStorage.getItem('token') && localStorage.getItem('account')) {
+      this.globalService.me = JSON.parse(localStorage.getItem('acount'));
+      this.goToHome();
+    }
   }
   goToHome() {
     this.router.navigate(['/home']);
@@ -34,6 +38,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         localStorage.setItem('token', http_response['token']);
         this.globalService.me = http_response['user'];
+        this.goToHome();
         console.log('response', http_response);
       },
       http_error => {
