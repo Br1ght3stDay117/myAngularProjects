@@ -79,6 +79,7 @@ export class HomeComponent implements OnInit {
       response => {
         this.movies.push(response);
         console.log('movies', response);
+        this.isAddEditMode = false;
       },
       error => {
         console.log('error', error);
