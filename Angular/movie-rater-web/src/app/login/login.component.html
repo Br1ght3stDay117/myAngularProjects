@@ -17,6 +17,7 @@
   </div>
   <button mat-ripple mat-raised-button type="submit" [disabled]= "userLogin.invalid || loading" color="primary">Login</button><br>
 </form>
+<mat-progress-bar mode="indeterminate" *ngIf="loading" ></mat-progress-bar>
 <!--<button mat-flat-button color="primary" (click)="goToHome()">Home</button>-->
 <br>
 <span>Don't have an account?<a [routerLink]="['/register']"> Register here</a></span>

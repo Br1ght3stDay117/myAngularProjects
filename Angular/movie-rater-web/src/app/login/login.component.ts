@@ -15,21 +15,19 @@ export class LoginComponent implements OnInit {
   userLogin: FormGroup;
   loading: boolean;
 
-  constructor(private fb: FormBuilder , private router: Router , private userService: UserService, private globalService: GlobalService) { }
-
-  ngOnInit() {
-    this.loading = false;
+  constructor(private fb: FormBuilder , private router: Router , private userService: UserService, private globalService: GlobalService) {
     this.userLogin = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+   }
+
+  ngOnInit() {
+    this.loading = false;
     if (localStorage.getItem('token') && localStorage.getItem('account')) {
-      this.globalService.me = JSON.parse(localStorage.getItem('acount'));
-      this.goToHome();
+      // this.globalService.me = JSON.parse(localStorage.getItem('acount'));
+      this.router.navigate(['/home']);
     }
-  }
-  goToHome() {
-    this.router.navigate(['/home']);
   }
   onLogin() {
     this.loading = true;
@@ -38,8 +36,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         localStorage.setItem('token', http_response['token']);
         this.globalService.me = http_response['user'];
-        this.goToHome();
-        console.log('response', http_response);
+        this.router.navigate(['/home']);
       },
       http_error => {
         this.loading = false;
