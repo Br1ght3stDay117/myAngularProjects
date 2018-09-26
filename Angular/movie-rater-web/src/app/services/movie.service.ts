@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Movie } from '../models/movie';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +14,9 @@ export class MovieService {
 
   getMovies(): Observable <any> {
     return this.http.get(this.baseUrl + 'movies/', this.getAuthHeaders());
+  }
+  addMovie(movie: Movie): Observable <any> {
+    return this.http.post(this.baseUrl + 'movies/', movie, this.getAuthHeaders());
   }
 
   private getAuthHeaders() {

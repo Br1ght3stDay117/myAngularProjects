@@ -5,6 +5,7 @@ import { GlobalService } from '../services/global.service';
 import { Router } from '@angular/router';
 import { MovieService } from '../services/movie.service';
 import { Movie } from '../models/movie';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,11 @@ export class HomeComponent implements OnInit {
   username;
   movies;
   selectedMovie: Movie;
+  movieInput: FormGroup;
+  isAddEditMode: boolean;
 
-  constructor(private router: Router , private globalService: GlobalService , private movieService: MovieService) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private router: Router , private globalService: GlobalService , private movieService: MovieService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.userSub = this.globalService.user.subscribe(
@@ -38,6 +42,11 @@ export class HomeComponent implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
+    this.isAddEditMode = false;
+    this.movieInput = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required]
+    });
   }
   getMovies() {
     this.movieService.getMovies().subscribe(
@@ -52,6 +61,7 @@ export class HomeComponent implements OnInit {
   }
   movieClicked(movie: Movie) {
     this.selectedMovie = movie;
+    this.isAddEditMode = false;
     console.log('movie clicked: ', movie);
   }
   private doLogout() {
@@ -59,6 +69,21 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+  addMovieClicked() {
+    this.isAddEditMode = true;
+    this.selectedMovie = null;
+  }
+  submitMovie() {
+    this.movieService.addMovie(this.movieInput.value).subscribe(
+      response => {
+        this.movies.push(response);
+        console.log('movies', response);
+      },
+      error => {
+        console.log('error', error);
+      }
+    );
   }
 
 }
