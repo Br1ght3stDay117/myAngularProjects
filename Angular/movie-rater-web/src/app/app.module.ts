@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GlobalService } from './services/global.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    NgbModule,
   ],
   providers: [GlobalService],
   bootstrap: [AppComponent]
