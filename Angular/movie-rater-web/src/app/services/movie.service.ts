@@ -18,7 +18,12 @@ export class MovieService {
   addMovie(movie: Movie): Observable <any> {
     return this.http.post(this.baseUrl + 'movies/', movie, this.getAuthHeaders());
   }
-
+  editMovie(movie: Movie, id: number): Observable <any> {
+    return this.http.put(this.baseUrl + 'movies/' + id + '/', movie, this.getAuthHeaders());
+  }
+  deleteMovie(id: number): Observable <any> {
+    return this.http.delete(this.baseUrl + 'movies/' + id + '/', this.getAuthHeaders());
+  }
   private getAuthHeaders() {
     const token = localStorage.getItem('token');
     const httpHeaders = new HttpHeaders(

@@ -1,3 +1,7 @@
+.container {
+    width: 50%;
+    float: left;
+}
 .movieClickable {
-    cursor: pointer;       
+    cursor: pointer;    
 }

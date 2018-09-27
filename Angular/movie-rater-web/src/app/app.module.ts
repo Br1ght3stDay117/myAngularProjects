@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GlobalService } from './services/global.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatSnackBarModule,
   ],
   providers: [GlobalService],
   bootstrap: [AppComponent]
