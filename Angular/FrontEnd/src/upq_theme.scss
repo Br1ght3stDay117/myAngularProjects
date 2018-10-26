@@ -1,0 +1,97 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$mat-upq-blue: (
+    50 : #e3e3e6,
+    100 : #b9bac1,
+    200 : #8a8c98,
+    300 : #5b5d6e,
+    400 : #383b4f,
+    500 : #151830,
+    600 : #12152b,
+    700 : #0f1124,
+    800 : #0c0e1e,
+    900 : #060813,
+    A100 : #5569ff,
+    A200 : #223cff,
+    A400 : #001cee,
+    A700 : #0019d5,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+$mat-upq-red: (
+    50 : #f1e5e7,
+    100 : #ddbdc3,
+    200 : #c6929b,
+    300 : #af6673,
+    400 : #9d4555,
+    500 : #8c2437,
+    600 : #842031,
+    700 : #791b2a,
+    800 : #6f1623,
+    900 : #5c0d16,
+    A100 : #ff919b,
+    A200 : #ff5e6c,
+    A400 : #ff2b3d,
+    A700 : #ff1226,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+// mat-palette accepts $palette-name, main, lighter and darker color variants
+$alt-primary: mat-palette($mat-grey,900,400,600);
+$alt-accent: mat-palette($mat-grey,500,600,800);
+$alt-warn: mat-palette($mat-blue-grey);
+$alt-background: mat-palette($mat-grey,900,400,600);
+$upq-alt: mat-dark-theme($alt-primary,$alt-accent,$alt-warn);
+
+// insert custom background color
+$background: map-get($upq-alt,$alt-background);
+//$background: map_merge($background,  $alt-background);
+//$upq-alt: map_merge($upq-alt, (background: $background));
+
+$upq-primary: mat-palette($mat-upq-blue,500,A400,800);
+$upq-accent: mat-palette($mat-upq-red,500,A100,A700);
+$upq-warn: mat-palette($mat-upq-red,A700);
+$upq-light: mat-light-theme($upq-primary,$upq-accent,$upq-warn);
+
+@include angular-material-theme($upq-light);
+
+
+
+.alternative {
+    @include angular-material-theme($upq-alt);    
+}
+
+
+  
+// rojo upq #8C2437
+// azul upq #151830
