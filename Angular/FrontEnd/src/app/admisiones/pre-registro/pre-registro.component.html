@@ -1,3 +1,205 @@
-<p>
-  pre-registro works!
-</p>
+<div class="container">
+  <mat-card >
+    <mat-card-header>
+      <h2>Sistema Integral de Información</h2>
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+      <mat-card-title>Bienvenido al módulo de admisiones</mat-card-title>
+      <p>
+        Para formar parte de la UPQ es necesario que llenes el siguiente formato de pre-registro, el sistema te asignará un Folio único con el que podrás continuar participando en los procesos de selección de la universidad.
+      </p>
+      <p>Dar clic en la siguiente liga para obtener tu Folio:</p>
+      <!--btn btn-lg btn-outline-primary-->
+      <button mat-flat-button color="accent" (click)="preRegistro(content)" mat-raised-button
+              matTooltip="Obtener formato de Pre-Registro">FORMATO DE PRE-REGISTRO</button >
+    </mat-card-content>
+  </mat-card>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Formato de Pre-Registro</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form (ngSubmit)="RegistraProspecto()" [formGroup]="pre_Registro">
+      <div class="modal-body">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" >
+            <mat-expansion-panel-header mat-raised-button
+                                        matTooltip="Presiona para abrir o cerrar esta sección" >
+              <mat-panel-title>
+                Información personal
+              </mat-panel-title>
+              <mat-panel-description>
+                Escribe tu nombre tal y como aparece en el acta de nacimiento:
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno" >
+              <mat-error *ngIf="pre_Registro.get('apellidoPaterno').hasError('required')">
+                Este campo es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Apellido Materno">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Nombre" formControlName="nombre">
+              <mat-error *ngIf="pre_Registro.get('nombre').hasError('required')">
+                Este campo es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field disabled>
+              <input matInput [matDatepicker]="picker"  placeholder="Fecha de nacimiento" formControlName="fechaNacimiento" mat-raised-button color="primary"
+                     matTooltip="Selecciona el ícono de calendario" >
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker startView="year" disabled="false" [startAt]="startDate"></mat-datepicker>
+              <mat-hint align="start">MM/DD/AAAA </mat-hint>
+              <mat-error *ngIf="pre_Registro.get('fechaNacimiento').hasError('required')">
+                Ingresa <strong>correctamente</strong> la fecha
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Género" formControlName="genero">
+                <mat-option value="option">Masculino</mat-option>
+                <mat-option value="option">Femenino</mat-option>
+              </mat-select>
+              <mat-error *ngIf="pre_Registro.get('genero').hasError('required')">
+                Este campo es <strong>obligatorio</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-action-row>
+              <button mat-button color="primary" (click)="nextStep()" mat-raised-button color="primary"
+                      matTooltip="Ir a la siguiente sección">Siguiente</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" >
+            <mat-expansion-panel-header mat-raised-button color="primary"
+                                        matTooltip="Presiona para abrir o cerrar esta sección">
+              <mat-panel-title>
+                Contacto
+              </mat-panel-title>
+              <mat-panel-description>
+                Los siguientes datos son muy importantes para ponernos en contacto:
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Correo electrónico" formControlName="email" mat-raised-button color="primary"
+                     matTooltip="Ingresa un correo vigente">
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-hint align="start">correo@ejemplo.com</mat-hint>
+              <mat-error *ngIf="pre_Registro.get('email').hasError('required')">
+                Este campo es <strong>obligatorio</strong>
+              </mat-error>
+              <mat-error *ngIf="pre_Registro.get('email').hasError('email')">
+                Formato inválido
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <span matPrefix>(+52) &nbsp;</span>
+              <input type="tel" #tel matInput placeholder="Teléfono local" mat-raised-button color="primary"
+                     matTooltip="Ingresa únicamente números" maxlength="10">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-hint align="start">Ingresa tu número a 10 dígitos </mat-hint>
+              <mat-hint align="end"><strong>{{tel.value.length}}</strong> / 10</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+              <span matPrefix>(+52) &nbsp;</span>
+              <input type="tel" #cel matInput placeholder="Celular" mat-raised-button color="primary"
+                     matTooltip="Ingresa únicamente números" maxlength="10">
+              <mat-icon matSuffix>stay_primary_portrait</mat-icon>
+              <mat-hint align="start">Ingresa tu número a 10 dígitos </mat-hint>
+              <mat-hint align="end"><strong>{{cel.value.length}}</strong> / 10</mat-hint>
+            </mat-form-field>
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()" mat-raised-button color="primary"
+                      matTooltip="Ir a la sección anterior">Anterior</button>
+              <button mat-button color="primary" (click)="nextStep()" mat-raised-button color="primary"
+                      matTooltip="Ir a la siguiente sección">Siguiente</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" >
+            <mat-expansion-panel-header mat-raised-button color="primary"
+                                        matTooltip="Presiona para abrir o cerrar esta sección">
+              <mat-panel-title>
+                Institución de procedencia
+              </mat-panel-title>
+              <mat-panel-description>
+                Selecciona tu escuela de procedencia
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <mat-select placeholder="Estado" [(ngModel)]="estado" name="estado" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let estado of estados" [value]="estado.value">
+                  {{estado.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Municipio" [(ngModel)]="municipio" name="municipio" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let municipio of municipios" [value]="municipio.value">
+                  {{municipio.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span>Institución de procedencia: </span>
+            <app-institucion-procedencia></app-institucion-procedencia>
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()" mat-raised-button color="primary"
+                      matTooltip="Ir a la sección anterior">Anterior</button>
+              <button mat-button color="primary" (click)="nextStep()" mat-raised-button color="primary"
+                      matTooltip="Ir a la siguiente sección">Siguiente</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+            <mat-expansion-panel-header mat-raised-button color="primary"
+                                        matTooltip="Presiona para abrir o cerrar esta sección">
+              <mat-panel-title>
+                Opciones educativas
+              </mat-panel-title>
+              <mat-panel-description>
+                Elige las 2 carreras en las que estés interesado
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <mat-select placeholder="Primera opción" [(ngModel)]="carrera1" name="carrera1" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let carrera of carreras" [value]="carrera.value">
+                  {{carrera.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Segunda opción" [(ngModel)]="carrera2" name="carrera2" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let carrera of carreras" [value]="carrera.value">
+                  {{carrera.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-panel-description>
+              ¿Por qué medio te enteraste de la Universidad?
+            </mat-panel-description>
+            <mat-form-field>
+              <mat-select placeholder="Selecciona una opción" [(ngModel)]="medio" name="medio" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let medio of medios" [value]="medio.value">
+                  {{medio.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()" mat-raised-button color="primary"
+                      matTooltip="Ir a la sección anterior">Anterior</button>
+              <button mat-button color="warn" (click)="nextStep()">Finalizar</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button type="submit" mat-raised-button color="accent">Enviar información</button>
+      <!--<button type="button" mat-raised-button color="primary" (click)="modal.close('Close click')">Close</button>-->
+    </div>
+  </ng-template>
+</div>

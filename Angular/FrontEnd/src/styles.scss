@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "upq_theme.scss";
+@import "~bootstrap/dist/css/bootstrap.css";
 
 .cdk-global-overlay-wrapper, .cdk-overlay-container, .md-select-menu-contai {
   z-index: 99999 !important;

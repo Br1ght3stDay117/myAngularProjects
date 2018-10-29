@@ -4,7 +4,7 @@ import { MaterialDesignModule } from './material-design/material-design/material
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { FlexLayoutModule } from '@angular/flex-layout';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
@@ -16,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    NgbModule,
     // FlexLayoutModule,
   ],
   declarations: [FooterComponent, HeaderComponent],
@@ -27,6 +28,7 @@ import { HeaderComponent } from './header/header.component';
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    NgbModule,
     // FlexLayoutModule,
   ]
 })
